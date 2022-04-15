@@ -8,7 +8,9 @@ Notably, this script includes support for prereleases and `--preid`.
 Unlike npm version, also supports `undo`, which soft resets to the previous commit and removes the associated tag (iff it is a version bump). 
 Useful when messing up the arguments.
 
-Can be used via command line or as a module. Use as module expects argumenst similar to `Deno.args`, e.g.: 
+Since there is no `package.json`, this tool is concerend with git and expects git tags of the form `v0.0.0` as source of truth.
+
+It can be used via command line or as a module. Usage as module expects argumenst similar to `Deno.args`, e.g.: 
 
 ```ts
 import { bump } from 'https://ghuc.cc/qwtel/deno-bump-version/bump.ts'
