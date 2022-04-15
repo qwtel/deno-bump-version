@@ -25,8 +25,8 @@ export async function getTags() {
 }
 
 export async function getLatestVersion() {
-  return (await runWithOutput(['git', 'describe', '--tags', '--abbrev=0']))
-    .trim()?.replace(/^v/, '') ?? '0.0.0'
+  return (await runWithOutput(['git', 'describe', '--tags', '--abbrev=0']).catch(() => null))
+    ?.trim()?.replace(/^v/, '') ?? '0.0.0'
 }
 
 export const TYPES: string[] = ["major", "minor", "patch", "premajor", "preminor", "prepatch", "prerelease", "pre"]
