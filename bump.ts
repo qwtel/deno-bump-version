@@ -32,7 +32,7 @@ export async function getLatestVersion() {
 export const TYPES: string[] = ["major", "minor", "patch", "premajor", "preminor", "prepatch", "prerelease", "pre"]
 export const isReleaseType = (s: string | number): s is ReleaseType => TYPES.includes(s.toString())
 
-export async function bump(denoArgs: string[]) {
+export async function bump(...denoArgs: string[]) {
   const { 
     _: args, 
     preid, 
@@ -95,7 +95,7 @@ Options:
 
 if (import.meta.main) {
   try {
-    console.log(await bump(Deno.args))
+    console.log(await bump(...Deno.args))
     Deno.exit()
   } catch (err) {
     console.error('Error:', err instanceof Error ? err.message : err)
