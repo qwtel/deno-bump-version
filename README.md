@@ -12,7 +12,7 @@ Can be used via command line or as a module. Use as module expects argumenst sim
 
 ```ts
 import { bump } from 'https://ghuc.cc/qwtel/deno_bump_version/bump.ts'
-bump('prerelease', '--preid=beta', '--sign-git-tag')
+await bump('prerelease', '--preid=beta', '--sign-git-tag')
 ```
 
 To use via command line, first install
