@@ -59,7 +59,7 @@ Usage:
 ./bump.ts [major | minor | patch | premajor | preminor | prepatch | prerelease | pre | undo]
 
 Options:
-[--no-commit-hooks] [--preid prerelease-id] [--sign-git-tag]
+[--preid prerelease-id] [--sign-git-tag] [--no-commit-hooks] 
 `);
     Deno.exit(0);
   }
