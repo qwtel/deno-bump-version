@@ -82,9 +82,8 @@ Options:
   }
 
   if (!isReleaseType(args[0])) throw Error('First argument must be one of: ' + TYPES.join(', '))
-  const release = args[0];
 
-  const next = inc(av, release, {}, preid)
+  const next = inc(av, args[0], {}, preid)
 
   const changes = await runWithOutput(['git', 'status', '--short'])
   if (!force && changes !== '') throw Error('Working directory not clean. Stash/commit changes or run with --force')
