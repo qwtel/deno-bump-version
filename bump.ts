@@ -41,12 +41,14 @@ export async function bump(...denoArgs: string[]) {
     help, 
     ['sign-git-tag']: signGitTag,
     ['commit-hooks']: commitHooks = true,
+    ['allow-same-version']: allowSame,
   } = flags.parse(denoArgs, {
     string: ['preid', 'message'],
     boolean: ['force', 'help', 'sign-git-tag', 'allow-same-version'],
     alias: {
       message: ['m'],
       force: ['f'],
+      'sign-git-tag': ['s'],
     }
   });
 
@@ -59,7 +61,8 @@ Usage:
 ./bump.ts [major | minor | patch | premajor | preminor | prepatch | prerelease | pre | undo]
 
 Options:
-[--preid prerelease-id] [--sign-git-tag] [--no-commit-hooks] 
+[--preid prerelease-id] [-s|--sign-git-tag]  [--no-commit-hooks] [--allow-same-version] 
+[-m|--message] [-f|--force]
 `);
     Deno.exit(0);
   }
@@ -88,7 +91,12 @@ Options:
 
   const gitMsg = message?.replace('%s', next) ?? next;
   await run(['git', 'commit', '-m', gitMsg, '--allow-empty', ...commitHooks ? [] : ['--no-verify']]);
-  await run(['git', 'tag', ...signGitTag ? ['-s'] : [], '-m', gitMsg, `v${next}`]);
+  await run(['git', 'tag', ...signGitTag ? ['-s'] : [], ...allowSame ? ['-f'] : [], '-m', gitMsg, `v${next}`])
+    .catch(async e => {
+      // undo previous commit iff tagging fails
+      await run(['git', 'reset', '--soft', 'HEAD^1'])
+      throw e;
+    })
 
   return `v${next}`
 }
