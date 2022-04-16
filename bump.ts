@@ -87,8 +87,8 @@ Options:
   if (!force && changes !== '') throw Error('Working directory not clean. Stash/commit changes or run with --force')
 
   const gitMsg = message?.replace('%s', next) ?? next;
-  await run(['git', 'commit', `-m ${gitMsg}`, '--allow-empty', ...commitHooks ? [] : ['--no-verify']]);
-  await run(['git', 'tag', ...signGitTag ? ['-s'] : [], `-m ${gitMsg}`, `v${next}`]);
+  await run(['git', 'commit', '-m', gitMsg, '--allow-empty', ...commitHooks ? [] : ['--no-verify']]);
+  await run(['git', 'tag', ...signGitTag ? ['-s'] : [], '-m', gitMsg, `v${next}`]);
 
   return `v${next}`
 }
