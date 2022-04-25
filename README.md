@@ -11,21 +11,31 @@ Useful when messing up a tag.
 
 ## usage
 
-It can be used via command line or as a module. Usage as module expects arguments similar to `Deno.args`, e.g.: 
+It can be used via command line or as a module. 
 
-```ts
-import { bump } from 'https://ghuc.cc/qwtel/deno-bump-version/bump.ts'
-await bump('prerelease', '--preid=beta', '--sign-git-tag')
-```
-
-To use via command line, first install
+To use via **command line**, first install the script 
 
 ```sh
-curl -L 'https://ghuc.cc/qwtel/deno-bump-version/bump.ts' > /usr/local/bin/bump.ts
+deno install --allow-run=git https://deno.land/x/bump_version/bump.ts
 ```
 
 then run, e.g.
 
 ```sh
-bump.ts --help
+bump prerelease --preid=beta --sign-git-tag
+```
+
+To change the executable name, use `-n`/`--name`:
+
+```sh
+deno install --allow-run=git -n version https://deno.land/x/bump_version/bump.ts
+```
+
+For more on `deno install`, see [here](https://deno.land/manual@v1.21.0/tools/script_installer).
+
+Usage as **module** expects arguments similar as those provided by `Deno.args`, e.g.: 
+
+```ts
+import { bump } from 'https://deno.land/x/bump_version/bump.ts'
+await bump('prerelease', '--preid=beta', '--sign-git-tag') 
 ```
